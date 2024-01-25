@@ -8,7 +8,24 @@ skincare_list = skincare_data['product_name'].values
 similarities = pickle.load(open("similarities.pkl", 'rb'))
 ingredients_similarities = pickle.load(open("ingredients_similarities.pkl",'rb'))
 
-st.header("Skincare Recommendations")
+st.header("Skinhance - KBeauty Skincare Recommendation System")
+
+desc_expander = st.expander("App Description + How to Use")
+
+app_desc = '''
+Welcome to Skinhance! This app helps you find similar skincare products to a product that you are currently using or looking into.
+
+**How to use:**
+- Choose a product from the dropdown list. You can search by product, brand, or keyword.
+- You will find a list of **Product Recommendations** and **Similar Ingredients**.
+- The **Product Recommendations** list recommends products with similar benefits to the chosen product.
+- The **Similar Ingredients** list recommends products with similar ingredients to the chosen product.
+- The two lists are ordered from most similar to least similar, so the first few products are the most similar, but the further down the list you go, the less related to the chosen product they will be.
+- The two lists can be very similar, but this would make sense, since products with similar ingredients will have similar benefits!
+'''
+
+desc_expander.write(app_desc)
+
 select_value = st.selectbox("Search product by brand, name, or keyword", skincare_list)
 recs_num = st.number_input("How many recommendations would you like?", value=5, step=1, min_value = 1, max_value=343)
 
