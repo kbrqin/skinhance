@@ -1,5 +1,4 @@
 bs4
 BeautifulSoup4
 streamlit
-pickle
 requests
