@@ -22,6 +22,9 @@ Welcome to Skinhance! This app helps you find similar skincare products to a pro
 - The **Similar Ingredients** list recommends products with similar ingredients to the chosen product.
 - The two lists are ordered from most similar to least similar, so the first few products are the most similar, but the further down the list you go, the less related to the chosen product they will be.
 - The two lists can be very similar, but this would make sense, since products with similar ingredients will have similar benefits! 
+
+**Notes:**
+- Data was extracted from [YesStyle](https://www.yesstyle.com/en/home.html).
 '''
 
 desc_expander.write(app_desc)
