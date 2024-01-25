@@ -10,33 +10,19 @@ ingredients_similarities = pickle.load(open("ingredients_similarities.pkl",'rb')
 
 st.header("Skincare Recommendations")
 select_value = st.selectbox("Search product by brand, name, or keyword", skincare_list)
-recs_num = st.number_input("How many recommendations would you like?", value=5, step=1, min_value = 1, max_value=357)
+recs_num = st.number_input("How many recommendations would you like?", value=5, step=1, min_value = 1, max_value=343)
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0", "Accept-Encoding": "gzip, deflate, br","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", "DNT":"1","Connection":"close","Upgrade-Insecure-Requests": "1"}
-
-# def fetch_image(img_url):
-#     # print(url)
-#     # print("\n\n\n")
-#     url = img_url
-
-#     page = requests.get(url, headers=headers)
-#     soup = BeautifulSoup(page.content, "html.parser")
-
-#     print(soup)
-
-#     img_link = soup.find('div', {'class':'productDetailPage_productImageCover__chqZe'})
-#     img_link = img_link.find('img')['src']
-#     return img_link
 
 def recommend(product, n):
     index = skincare_data[skincare_data['product_name']==product].index[0]
     distances = sorted(list(enumerate(similarities[index])), reverse=True, key = lambda vector:vector[1])
     recommended_skincare = []
     recommended_images = []
-    if n + 1 < 357:
+    if n + 1 < 344:
         n += 1
     else:
-        n = 356
+        n = 343
     for i in distances[1:n]:
         print(skincare_data.iloc[i[0]].product_name)
         print(skincare_data.iloc[i[0]].url)
@@ -49,10 +35,10 @@ def find_similar_ingredients(product, n):
     distances = sorted(list(enumerate(ingredients_similarities[index])), reverse=True, key = lambda vector:vector[1])
     similar_ingredients_skincare = []
     similar_ingredients_images = []
-    if n + 1 < 357:
+    if n + 1 < 344:
         n += 1
     else:
-        n = 356
+        n = 343
     for i in distances[1:n]:
         print(skincare_data.iloc[i[0]].product_name)
         print(skincare_data.iloc[i[0]].url)
@@ -63,7 +49,7 @@ def find_similar_ingredients(product, n):
 if st.button("Show Recommendations"):
     skincare_g_names, skincare_g_images = recommend(select_value, recs_num) 
     skincare_si_names, skincare_si_images = find_similar_ingredients(select_value, recs_num) 
-    recs_header = st.subheader("General Recommendations:")
+    recs_header = st.subheader("Product Recommendations:")
     c1 = st.container()
 
     for i in range(0, len(skincare_g_names), 5):
@@ -100,37 +86,8 @@ if st.button("Show Recommendations"):
         with col5:
             if i + 4 < len(skincare_g_names):
                 st.markdown(skincare_g_names[i+4])
-
     
-
-    # col1, col2, col3, col4, col5 = c1.columns(5)
-    # with col1:
-    #     for i in range(recs_num):
-    #         if i % 5 == 0:
-    #             st.markdown(skincare_g_names[i])
-    #             st.image(skincare_g_images[i])
-    # with col2:
-    #     for i in range(recs_num):
-    #         if i % 5 == 1:
-    #             st.markdown(skincare_g_names[i])
-    #             st.image(skincare_g_images[i])
-    # with col3:
-    #     for i in range(recs_num):
-    #         if i % 5 == 2:
-    #             st.markdown(skincare_g_names[i])
-    #             st.image(skincare_g_images[i])
-    # with col4:
-    #     for i in range(recs_num):
-    #         if i % 5 == 3:
-    #             st.markdown(skincare_g_names[i])
-    #             st.image(skincare_g_images[i])
-    # with col5:
-    #     for i in range(recs_num):
-    #         if i % 5 == 4:
-    #             st.markdown(skincare_g_names[i])
-    #             st.image(skincare_g_images[i])
-    
-    similar_ingredients_header = st.subheader("Similar ingredients:")
+    similar_ingredients_header = st.subheader("Similar Ingredients:")
 
     c2 = st.container()
 
@@ -168,32 +125,3 @@ if st.button("Show Recommendations"):
         with col5:
             if i + 4 < len(skincare_si_names):
                 st.markdown(skincare_si_names[i+4])
-
-    # c2 = st.container()
-    # col6, col7, col8, col9, col10 = c2.columns(5)
-    # with col6:
-    #     for i in range(recs_num):
-    #         if i % 5 == 0:
-    #             st.markdown(skincare_si_names[i])
-    #             st.image(skincare_si_images[i])
-    # with col7:
-    #     for i in range(recs_num):
-    #         if i % 5 == 1:
-    #             st.markdown(skincare_si_names[i])
-    #             st.image(skincare_si_images[i])
-    # with col8:
-    #     for i in range(recs_num):
-    #         if i % 5 == 2:
-    #             st.markdown(skincare_si_names[i])
-    #             st.image(skincare_si_images[i])
-    # with col9:
-    #     for i in range(recs_num):
-    #         if i % 5 == 3:
-    #             st.markdown(skincare_si_names[i])
-    #             st.image(skincare_si_images[i])
-    # with col10:
-    #     for i in range(recs_num):
-    #         if i % 5 == 4:
-    #             st.markdown(skincare_si_names[i])
-    #             st.image(skincare_si_images[i])
-
