@@ -1,5 +1,5 @@
 bs4
-BeautifulSoup
+BeautifulSoup4
 streamlit
 pickle
 requests
