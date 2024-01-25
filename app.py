@@ -4,7 +4,8 @@ import pickle
 import requests
 
 skincare_data = pickle.load(open("skincare_list.pkl", 'rb'))
-skincare_list = skincare_data['product_name'].values
+# skincare_list = skincare_data['product_name'].values
+skincare_list = skincare_data['product_name_nmd'].values
 similarities = pickle.load(open("similarities.pkl", 'rb'))
 ingredients_similarities = pickle.load(open("ingredients_similarities.pkl",'rb'))
 
@@ -35,7 +36,7 @@ recs_num = st.number_input("How many recommendations would you like?", value=5, 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0", "Accept-Encoding": "gzip, deflate, br","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", "DNT":"1","Connection":"close","Upgrade-Insecure-Requests": "1"}
 
 def recommend(product, n):
-    index = skincare_data[skincare_data['product_name']==product].index[0]
+    index = skincare_data[skincare_data['product_name_nmd']==product].index[0]
     distances = sorted(list(enumerate(similarities[index])), reverse=True, key = lambda vector:vector[1])
     recommended_skincare = []
     recommended_images = []
@@ -51,7 +52,7 @@ def recommend(product, n):
     return recommended_skincare, recommended_images
 
 def find_similar_ingredients(product, n):
-    index = skincare_data[skincare_data['product_name']==product].index[0]
+    index = skincare_data[skincare_data['product_name_nmd']==product].index[0]
     distances = sorted(list(enumerate(ingredients_similarities[index])), reverse=True, key = lambda vector:vector[1])
     similar_ingredients_skincare = []
     similar_ingredients_images = []
